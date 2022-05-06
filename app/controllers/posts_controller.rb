@@ -1,9 +1,10 @@
 class PostsController < ApplicationController
-    before_action :set_post, only: %i[ show edit update destroy]
+    # before_action :set_post, only: %i[ show edit update destroy]
 
     # Get /posts
     def index
-        @posts = Post.all
+        @post = Post.all
+        render json: @post
     end
 
     # Get /posts/1
@@ -50,6 +51,6 @@ class PostsController < ApplicationController
     end
 
     def post_params
-        params.require(:post).permit(:title, :description)
+        params.require(:post).permit(:title, :content)
     end
 end
