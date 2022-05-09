@@ -1,45 +1,17 @@
 class UsersController < ApplicationController
+    wrap_parameters format: []
+    
     def index
-        @users = User.all
-        if @users
-            render json: {
-            users: @users
-         }
-        else
-            render json: {
-            status: 500,
-            errors: ['no users found']
-        }
-       end
+        users = User.all
+        render json: users, staus: :ok
     end
 
-    def show
-        @user = User.find(params[:id])
-        if @user
-            render json: @user
-        else
-            render json: {
-                status: 500,
-                errors: ['user not found']
-            }
-        end
-    end
 
     def create
-        @user = User.new(user_params)
-        if @user.save
-            login!
-            render json: {
-                status: :created,
-                user: @user
-            }
-        else
-            render json: {
-                status: 500,
-                errors: @user.errors.full_messages
-            }
-        end
+        user = User.create(first_name:params[:first_name], last_name:params[:last_name], email:params[:email], password:params[:password], username:params[:username])
+        render json: user, status: :created
     end
+
 
     def destroy
         user = User.find_by(id: params[:id])
@@ -47,13 +19,7 @@ class UsersController < ApplicationController
             user.destroy
             head :no_content
         else
-            render json: { error: "User not found" }, status: :not_found
+            render json: {error: "user not found"}, status: :not_found
         end
-    end
-
-    private
-
-    def user_params
-        params.require(:user).permit(:username, :password, :password_confirmation)
     end
 end

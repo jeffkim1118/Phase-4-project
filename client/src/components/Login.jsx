@@ -12,14 +12,14 @@ class Login extends Component {
       errors: ''
      };
   }
-handleChange = (event) => {
-    const {name, value} = event.target
+handleChange = (e) => {
+    const {name, value} = e.target
     this.setState({
       [name]: value
     })
   };
-handleSubmit = (event) => {
-    event.preventDefault()
+handleSubmit = (e) => {
+    e.preventDefault()
   };
 render() {
     const {username, email, password} = this.state
@@ -28,13 +28,13 @@ render() {
       <div>
         <h1>Log In</h1>        
         <form onSubmit={this.handleSubmit}>
-          <input
+          {/* <input
             placeholder="username"
             type="text"
             name="username"
             value={username}
             onChange={this.handleChange}
-          />
+          /> */}
           <input
             placeholder="email"
             type="text"

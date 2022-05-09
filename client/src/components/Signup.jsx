@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+import {Link} from 'react-router-dom'
 
 class Signup extends Component {
   constructor(props) {
@@ -12,15 +12,15 @@ class Signup extends Component {
       errors: ''
      };
   }
-handleChange = (event) => {
-    const {name, value} = event.target
+handleChange = (e) => {
+    const {name, value} = e.target
     this.setState({
       [name]: value
     })
 };
 
-handleSubmit = (event) => {
-    event.preventDefault()
+handleSubmit = (e) => {
+    e.preventDefault()
 };
 
 render() {
@@ -63,6 +63,9 @@ return (
           </button>
       
         </form>
+          <div>
+            or <Link to='/login'>Already a member? Login</Link>
+          </div>
       </div>
     );
   }
