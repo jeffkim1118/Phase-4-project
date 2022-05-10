@@ -12,4 +12,8 @@ class PostsController < ApplicationController
          render json: { error: "Post not Found" }, status: :not_found
       end
    end
+   
+   def create
+      
+   end
 end
