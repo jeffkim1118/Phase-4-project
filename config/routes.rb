@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :posts
   
+  post '/login', to: 'sessions#create'
 
   #Show all the posts
   # get '/posts', to: 'posts#index'

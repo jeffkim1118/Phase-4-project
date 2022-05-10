@@ -6,6 +6,10 @@ class UsersController < ApplicationController
         render json: users, staus: :ok
     end
 
+    def show
+        user = User.find_by(id: params[:id])
+        render json: user, status: :found
+    end
 
     def create
         user = User.create(first_name:params[:first_name], last_name:params[:last_name], email:params[:email], password:params[:password], username:params[:username])
