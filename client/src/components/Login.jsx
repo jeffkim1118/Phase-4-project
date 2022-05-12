@@ -1,63 +1,38 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { 
-      username: '',
-      email: '',
-      password: '',
-      errors: ''
-     };
-  }
-handleChange = (e) => {
-    const {name, value} = e.target
-    this.setState({
-      [name]: value
-    })
-  };
-handleSubmit = (e) => {
-    e.preventDefault()
-  };
-render() {
-    const {username, email, password} = this.state
-    
-    return (
-      <div>
-        <h1>Log In</h1>        
-        <form onSubmit={this.handleSubmit}>
-          {/* <input
-            placeholder="username"
-            type="text"
-            name="username"
-            value={username}
-            onChange={this.handleChange}
-          /> */}
-          <input
-            placeholder="email"
-            type="text"
-            name="email"
-            value={email}
-            onChange={this.handleChange}
-          />
-          <input
-            placeholder="password"
-            type="password"
-            name="password"
-            value={password}
-            onChange={this.handleChange}
-          />         
-        <button placeholder="submit" type="submit">Log In</button>      
+function Login({ onLogin }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-          <div>
-            or <Link to='/signup'>sign up</Link>
-          </div>
-          
-         </form>
-      </div>
-    );
+  function handleSubmit(e) {
+    e.preventDefault();
+    fetch("/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username }),
+    })
+      .then((r) => r.json())
+      .then((user) => onLogin(user));
   }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <input
+        type="text"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button type="submit">Login</button>
+    </form>
+  );
 }
-export default Login;
+export default Login

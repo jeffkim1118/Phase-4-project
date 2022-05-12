@@ -9,6 +9,7 @@ require 'faker'
 
 # Fake users to test out
 User.create(first_name: "Violet", last_name: "Evergarden", username: "vever23", email: "vever@gmail.com", password: "testing")
+User.create(first_name: "Rye", last_name: "Anderson", username: "randerson21", email: "ryea@gmail.com", password: "testing2")
 
-
+Post.create(title: "My Life", content: "Testing 1353543525233245", tags:"Life", author_id: "1")
 # Random posts to display

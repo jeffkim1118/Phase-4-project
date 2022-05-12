@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     end
 
     def create
-        user = User.create(first_name:params[:first_name], last_name:params[:last_name], email:params[:email], password:params[:password], username:params[:username])
+        user = User.create(user_params)
         render json: user, status: :created
     end
 
@@ -26,4 +26,9 @@ class UsersController < ApplicationController
             render json: {error: "user not found"}, status: :not_found
         end
     end
+    
+    private
+    def user_params
+        params.permit(:first_name, :last_name, :email, :password, :username)
+    end 
 end
