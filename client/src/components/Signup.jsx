@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
+import './style/signup.css'
 
 class Signup extends Component {
   constructor(props) {
@@ -26,37 +27,37 @@ handleSubmit = (e) => {
 render() {
     const {username, email, password, password_confirmation} = this.state
 return (
-      <div>
+      <div className='signup_container'>
         <h1>Sign Up</h1>        
-        <form onSubmit={this.handleSubmit}>
+        <form className='signup_form' onSubmit={this.handleSubmit}>
           <input
-            placeholder="username"
+            placeholder="Username"
             type="text"
             name="username"
             value={username}
             onChange={this.handleChange}
-          />
+          /><br/>
           <input
-            placeholder="email"
+            placeholder="Email"
             type="text"
             name="email"
             value={email}
             onChange={this.handleChange}
-          />
+          /><br/>
           <input 
-            placeholder="password"
+            placeholder="Password"
             type="password"
             name="password"
             value={password}
             onChange={this.handleChange}
-          />          
+          /><br/>   
           <input
-            placeholder="password confirmation"
+            placeholder="Retype your password"
             type="password"
             name="password_confirmation"
             value={password_confirmation}
             onChange={this.handleChange}
-          />
+          /><br/>
         
           <button placeholder="submit" type="submit">
             Sign Up

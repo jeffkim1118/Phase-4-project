@@ -1,5 +1,5 @@
-import React, { Component, useState, useEffect } from 'react';
-import axios from 'axios'
+import React, {  useState } from 'react';
+
 import {Link} from 'react-router-dom'
 
 function Login({ onLogin }) {
@@ -20,6 +20,8 @@ function Login({ onLogin }) {
   }
 
   return (
+    <div>
+    <h1>Login</h1> 
     <form onSubmit={handleSubmit}>
       <input
         type="text"
@@ -33,6 +35,9 @@ function Login({ onLogin }) {
       />
       <button type="submit">Login</button>
     </form>
+    
+    <div><Link to='/signup'>First time? Register Now!</Link></div>
+    </div>
   );
 }
 export default Login

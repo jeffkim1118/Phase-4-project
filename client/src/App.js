@@ -1,31 +1,19 @@
 import './App.css';
-import React, { Component, useState, useEffect } from 'react';
-import { BrowserRouter, renderMatches, Route, Routes} from "react-router-dom";
-import axios from 'axios'
+import React from 'react';
+import { BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from './components/Home';
 import Login from './components/Login';
 import Signup from './components/Signup';
 
 function App() {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    fetch("/me").then((response) => {
-      if (response.ok) {
-        response.json().then((user) => setUser(user));
-      }
-    });
-  }, []);
-
-  if (user) {
-    return <h2>Welcome, {user.username}!</h2>;
-  } else {
-    return <Login onLogin={setUser} />;
-  }
   return(
+    <BrowserRouter>
     <Routes>
-      <Route exact path="/"element={<Home />}/>
+      <Route path="/" element={<Home />}></Route>
+      <Route path="/login" element={<Login />}></Route>
+      <Route path="/signup" element={<Signup />}></Route>
     </Routes>
+    </BrowserRouter>
   )
 }
 
