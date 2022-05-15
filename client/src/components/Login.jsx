@@ -1,41 +1,43 @@
 import React, {  useState } from 'react';
+import {Link} from 'react-router-dom';
+import './style/login.css';
 
-import {Link} from 'react-router-dom'
-
-function Login({ onLogin }) {
+function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch("/login", {
+    fetch("http://localhost:3000/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username }),
+      body: JSON.stringify({ username:username, password:password }),
     })
       .then((r) => r.json())
-      .then((user) => onLogin(user));
+      .then((user) => console.log(user));
   }
 
   return (
-    <div>
+    <div className='login_wrapper'>
     <h1>Login</h1> 
-    <form onSubmit={handleSubmit}>
+    <form className='login_form' onSubmit={handleSubmit}>
       <input
         type="text"
         value={username}
+        placeholder="Username"
         onChange={(e) => setUsername(e.target.value)}
-      />
+      /><br/>
       <input
-        type="text"
+        type="password"
         value={password}
+        placeholder="Password"
         onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit">Login</button>
+      /><br/>
+      <button className="login_btn" type="submit">Login</button>
     </form>
-    
+    <br/>
     <div><Link to='/signup'>First time? Register Now!</Link></div>
     </div>
   );

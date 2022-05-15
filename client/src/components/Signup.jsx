@@ -1,74 +1,78 @@
-import React, { Component } from 'react';
-import {Link} from 'react-router-dom'
-import './style/signup.css'
+import React, { useState } from 'react';
+import {Link} from 'react-router-dom';
+import './style/signup.css';
 
-class Signup extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { 
-      username: '',
-      email: '',
-      password: '',
-      password_confirmation: '',
-      errors: ''
-     };
-  }
-handleChange = (e) => {
-    const {name, value} = e.target
-    this.setState({
-      [name]: value
+function Signup() {
+  const [first_name, setFirst] = useState("");
+  const [last_name, setLast] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const newUser = {
+      first_name,
+      last_name,
+      email,
+      password,
+      username
+    };
+    fetch(`http://localhost:3000/users`, {
+      method: "POST",
+      headers: {"Content-Type": "application/json",},
+      body: JSON.stringify(newUser),
     })
-};
-
-handleSubmit = (e) => {
-    e.preventDefault()
-};
-
-render() {
-    const {username, email, password, password_confirmation} = this.state
-return (
-      <div className='signup_container'>
-        <h1>Sign Up</h1>        
-        <form className='signup_form' onSubmit={this.handleSubmit}>
-          <input
-            placeholder="Username"
-            type="text"
-            name="username"
-            value={username}
-            onChange={this.handleChange}
-          /><br/>
-          <input
-            placeholder="Email"
-            type="text"
-            name="email"
-            value={email}
-            onChange={this.handleChange}
-          /><br/>
-          <input 
-            placeholder="Password"
-            type="password"
-            name="password"
-            value={password}
-            onChange={this.handleChange}
-          /><br/>   
-          <input
-            placeholder="Retype your password"
-            type="password"
-            name="password_confirmation"
-            value={password_confirmation}
-            onChange={this.handleChange}
-          /><br/>
-        
-          <button placeholder="submit" type="submit">
-            Sign Up
-          </button>
-      
-        </form>
-          <div>
-            or <Link to='/login'>Already a member? Login</Link>
-          </div>
-      </div>
-    );
+      .then((r) => r.json())
+      .then(user => console.log(user));
   }
+
+  return (
+    <div className='signup_container'>
+      <h1>Sign Up</h1>
+    <form className='signup_form' onSubmit={handleSubmit}>
+      <input
+        type="text"
+        id="first"
+        placeholder='First Name'
+        value={first_name}
+        onChange={(e) => setFirst(e.target.value)}
+      /><br />
+      <input
+        type="text"
+        id="last"
+        placeholder='Last Name'
+        value={last_name}
+        onChange={(e) => setLast(e.target.value)}
+      /><br />
+      <input
+        type="text"
+        id="username"
+        placeholder='Username'
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      /><br />
+      <input
+        type="text"
+        id="email"
+        placeholder='Email'
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      /><br />
+      <input
+        type="password"
+        id="password"
+        placeholder='Password'
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      /><br />
+      <button className='sign_up_btn' type="submit">Register</button>
+    </form>
+      <br/>
+      <div>or <Link to='/login'>Already a member? Login</Link></div>
+    </div>
+  );
 }
+          
+  
 export default Signup;
