@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import './style/signup.css';
 
-function Signup() {
+function Signup({setUser}) {
   const [first_name, setFirst] = useState("");
   const [last_name, setLast] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -24,7 +25,8 @@ function Signup() {
       body: JSON.stringify(newUser),
     })
       .then((r) => r.json())
-      .then(user => console.log(user));
+      .then(user => setUser(user));
+      navigate('../login', {replace:true})
   }
 
   return (

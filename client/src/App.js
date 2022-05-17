@@ -1,31 +1,31 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Routes} from "react-router-dom";
+import { Route, Routes} from "react-router-dom";
 import Home from './components/Home';
 import Login from './components/Login';
 import Signup from './components/Signup';
 
+import Navbar from './components/Navbar';
+
 function App() {
-  // const[currentUser, setCurrentUser] = useState('')
+  const [user, setUser] = useState(null);
 
-  // useEffect(() => {
-  //   fetch('/auth')
-  //   .then(res => {
-  //     if (res.ok)
-  //       res.json().then(user => setCurrentUser(user))
-  //   })
-  // }, []);
+  useEffect(() => {
+    fetch("/auth").then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user));
+      }
+    });
+  }, []);
 
-  // if (!currentUser) return <Login setCurrentUser={setCurrentUser}/>
   return(
-    <>
-    <BrowserRouter>
+    <>  
+    <Navbar user={user} setUser={setUser} />
     <Routes>
-      <Route exact path="/" element={<Home />}></Route>
-      <Route exact path="/login" element={<Login />}></Route>
-      <Route exact path="/signup" element={<Signup />}></Route>
+      <Route exact path="/" element={<Home user={user}/>}></Route>
+      <Route exact path="/login" element={<Login setUser={setUser} />}></Route>
+      <Route exact path="/signup" element={<Signup setUser={setUser}/>}></Route>
     </Routes>
-    </BrowserRouter>
     </>
   )
 }

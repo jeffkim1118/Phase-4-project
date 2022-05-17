@@ -1,10 +1,11 @@
 import React, {  useState } from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import './style/login.css';
 
-function Login() {
+function Login({setUser}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -16,9 +17,10 @@ function Login() {
       body: JSON.stringify({ username:username, password:password }),
     })
       .then((r) => r.json())
-      .then((user) => console.log(user));
+      .then((user) => setUser(user));
+      navigate("/", {replace:true})
   }
-
+  
   return (
     <div className='login_wrapper'>
     <h1>Login</h1> 

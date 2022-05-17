@@ -7,11 +7,16 @@ Rails.application.routes.draw do
 
   post '/users', to: 'users#create'
 
-  get '/users/:id', to: 'users#show'
+  # get '/users/:id', to: 'users#show'
 
   delete "/logout", to: "sessions#destroy"
 
-  # get "/auth", to: "users#show"
+  get "/auth", to: "users#show"
+
+  # Posts section
+
+  # get '/posts', to: 
+
 
    root 'pages#home'
   # # Routing logic: fallback requests for React Router.
